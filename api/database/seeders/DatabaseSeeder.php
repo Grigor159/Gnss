@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             OpportunityStatusesSeeder::class
         ]);
-        User::factory(10)->create();
+        // User::factory(10)->create();
     }
 }
