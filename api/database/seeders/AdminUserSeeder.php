@@ -17,10 +17,10 @@ class AdminUserSeeder extends Seeder
         User::query()->create([
             'name' => 'admin',
             'surname' => 'admin',
-            'email' => 'admin@gnss.com',
+            'email' => 'sales@leica.am',
             'role_id' =>  1,
-            'username' => 'admin',
-            'password' => Hash::make('admin')
+            'username' => 'leica.admin',
+            'password' => Hash::make('admin.leica.2024')
         ]);
     }
 }
