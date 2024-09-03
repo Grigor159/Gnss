@@ -24,10 +24,10 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'surname' => '',
-            'email' => '',
-            'role_id' => '',
+            'email' => 'required|unique:users,email,$this->id,id',
+            'role_id' => 'required',
             'username' => 'required',
-            'password' => '',
+            'password' => 'required',
         ];
     }
 }

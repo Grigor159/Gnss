@@ -257,7 +257,7 @@
                                                                             <label class="custom-file-label" for="file">Choose file</label>
                                                                         </div>
                                                                         <div class="input-group-append">
-                                                                            <input class="btn btn-outline-success" type="submit" id="inputGroupFileAddon04">
+                                                                            <input class="btn btn-outline-success" type="submit" value="submit" id="inputGroupFileAddon04">
                                                                         </div>
                                                                     </div>
                                                                 </div>

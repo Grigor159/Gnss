@@ -42,21 +42,23 @@ class OpportunityService
      * create
      *
      * @param  mixed $data
-     * @return void
+     * @return mixed
      */
     public function create($data)
     {
-        $opportunity = $this->opportunityRepository->create($data);
-
-        dd($opportunity);
-
         if (isset($data['note'])) {
             $note = [
                 'text' => $data['note'],
-                'opportunity_id' => $opportunity->id,
                 'status_id' => 1
             ];
-            $opportunityNote = $this->opportunityNoteService->create($note);
+            unset($data['note']);
+        }
+
+        $opportunity = $this->opportunityRepository->create($data);
+
+        if (isset($note)) {
+            $note['opportunity_id'] = $opportunity->id;
+            $this->opportunityNoteService->create($note);
         }
 
         return $opportunity;

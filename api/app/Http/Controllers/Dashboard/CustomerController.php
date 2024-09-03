@@ -54,7 +54,7 @@ class CustomerController extends Controller
 
         $this->customerService->create($data);
 
-        return redirect()->route('partners.index');
+        return redirect()->route('customers.index');
     }
 
     /**

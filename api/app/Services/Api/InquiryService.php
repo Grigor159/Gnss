@@ -3,6 +3,10 @@
 namespace App\Services\Api;
 
 use App\Models\Inquiry;
+use App\Models\Customer;
+use Illuminate\Support\Facades\DB;
+use App\Services\OpportunityService;
+use App\Models\CustomerContactPerson;
 use App\Repositories\Api\InquiryRepository;
 
 class InquiryService
@@ -15,15 +19,25 @@ class InquiryService
     private $inquiryRepository;
 
     /**
+     * opportunityService
+     *
+     * @var mixed
+     */
+    private $opportunityService;
+
+    /**
      * __construct
      *
      * @param  InquiryRepository $inquiryRepository
+     * @param  OpportunityService $opportunityService
      * @return void
      */
     public function __construct(
-        InquiryRepository $inquiryRepository
+        InquiryRepository $inquiryRepository,
+        OpportunityService $opportunityService
     ) {
         $this->inquiryRepository = $inquiryRepository;
+        $this->opportunityService = $opportunityService;
     }
 
     /**
@@ -52,7 +66,7 @@ class InquiryService
      * delete
      *
      * @param  mixed $id
-     * @return void
+     * @return mixed
      */
     public function delete($id)
     {
@@ -63,32 +77,55 @@ class InquiryService
      * toOpportunity
      *
      * @param  mixed $data
-     * @return void
+     * @return mixed
      */
     public function toOpportunity($data)
     {
         $inquiry = Inquiry::find($data['id'])->toArray();
 
-        $customer = [
-            'name' => 'required',
-            'address' => '',
-            'contactPersons' => [
-                
-            ]
-        ];
+        $targetCustomer = CustomerContactPerson::where([
+            ['email', '=', $inquiry['email']],
+            ['phone', '=', $inquiry['phone']]
+        ])->first();
 
 
+        if ($targetCustomer) {
+            $customerId = $targetCustomer['customer_id'];
+        } else {
+            DB::beginTransaction();
+            try {
+                $customer = Customer::create([
+                    'name' => $inquiry['company'],
+                ]);
 
+                CustomerContactPerson::create([
+                    'name' => $inquiry['fullName'],
+                    'phone' => $inquiry['phone'],
+                    'email' => $inquiry['email'],
+                    'customer_id' => $customer->id,
+                ]);
+                $customerId = $customer->id;
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->back()->with('error', $e->getMessage());
+            }
 
+        }
 
         $opportunity = [
             'product_id' => $inquiry['product_id'],
-            'customer_id' => '----',
+            'customer_id' => $customerId,
             'user_id' => $data['manager'],
-            'count' => $inquiry['product_id']
+            'count' => $inquiry['product_id'],
+            'note' => $inquiry['note']
         ];
+        $opportunity = $this->opportunityService->create($opportunity);
 
-        dd($inquiry, $opportunity);
+
+        // $this->delete($inquiry['id']);
+
+        return $opportunity;
     }
 
 }
