@@ -5,4 +5,9 @@
   letter-spacing: 0.5px;
   border-bottom: 2px solid $red;
   width: fit-content;
+
+  @media screen and (max-width: 768px) {
+    font-size: 27px;
+    margin: 0 auto;
+  }
 }

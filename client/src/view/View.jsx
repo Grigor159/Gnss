@@ -1,9 +1,12 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import pMinDelay from "p-min-delay";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { Loader } from "../components/loader/Loader"
 import Layout from "../components/layout/Layout";
-import { getAllCategories, getAllChildSubCategories, getAllSubCategories } from "../store/slices/homeSlice";
+import {
+  getAllCategories,
+  getAllChildSubCategories,
+  getAllSubCategories,
+} from "../store/slices/homeSlice";
 import { useDispatch, useSelector } from "react-redux";
 // import { productsSub } from "./data";
 import ScrollToTop from "../components/scrollToTop/ScrollToTop";
@@ -15,12 +18,22 @@ const Categories = lazy(() =>
   pMinDelay(import("../pages/products/categories/Categories"), 500)
 );
 const Sub = lazy(() => pMinDelay(import("../pages/products/sub/Sub"), 500));
-const ChildSub = lazy(() => pMinDelay(import("../pages/products/childSub/ChildSub"), 500));
-const Result = lazy(() => pMinDelay(import("../pages/products/result/Result"), 500));
+const ChildSub = lazy(() =>
+  pMinDelay(import("../pages/products/childSub/ChildSub"), 500)
+);
+const Result = lazy(() =>
+  pMinDelay(import("../pages/products/result/Result"), 500)
+);
 const NotFound = lazy(() => pMinDelay(import("../pages/404/NotFound"), 500));
 
 const View = () => {
-  const { language, allCategories, allSubCategories, allChildSubCategories } = useSelector((state) => state.home);
+  const {
+    language,
+    openBurger,
+    allCategories,
+    allSubCategories,
+    allChildSubCategories,
+  } = useSelector((state) => state.home);
 
   const dispatch = useDispatch();
 
@@ -72,7 +85,7 @@ const View = () => {
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
-        <ScrollToTop />
+        {!openBurger && <ScrollToTop />}
       </Suspense>
     </Router>
   );

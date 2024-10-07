@@ -17,7 +17,7 @@ export const Cards = ({ data }) => {
   const dispatch = useDispatch();
 
   const scrollableDivRef = useRef(null);
-  const scroll = 277;
+  const scroll = 405;
 
   const scrollLeft = () => {
     const scrollableDiv = scrollableDivRef.current;

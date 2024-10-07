@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { getPartners } from "../../store/slices/homeSlice";
 import { Title } from "../../components/animate/Title";
 import { aboutImages } from "./data";
@@ -8,7 +8,7 @@ import { FullScreenSlide } from "../../components/fullScreenSlide/FullScreenSlid
 import "./About.scss";
 
 const About = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [fullscreenImageIndex, setFullscreenImageIndex] = useState(0);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
@@ -32,13 +32,13 @@ const About = () => {
     ? (document.body.style.overflow = "hidden")
     : (document.body.style.overflow = "auto");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPartners())
-  }, [dispatch])
+    dispatch(getPartners());
+  }, [dispatch]);
 
-  const { partners } = useSelector((state) => state.home)
+  const { partners } = useSelector((state) => state.home);
 
   return (
     <section className="about">
@@ -47,16 +47,14 @@ const About = () => {
 
         <div className="about">
           <div className="about__main">
-            <h3>
-              {t("about_subtitle")}
-            </h3>
+            <h3>{t("about_subtitle")}</h3>
 
             <div className="about__main-context">
               <div
                 className="about__main-context-img"
                 onClick={() => openFullscreen(0)}
               >
-                {aboutImages?.slice(0, 1)?.map(({ image, id }) => (
+                {aboutImages?.map(({ image, id }) => (
                   <img key={id} src={image} alt="About-Us" />
                 ))}
               </div>
@@ -64,7 +62,7 @@ const About = () => {
               <p>{t("about_text")}</p>
             </div>
 
-            <div className="about__main-imgs">
+            {/* <div className="about__main-imgs">
               {aboutImages?.slice(1, 5)?.map(({ image, id }) => {
                 return (
                   <div
@@ -76,7 +74,7 @@ const About = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -90,19 +88,23 @@ const About = () => {
           </div>
         )}
 
-        <div className="about__partners">
-          <h3>Partners</h3>
-          <div className="about__partners-block">
-            {partners?.map(({ id, title, image }) => {
-              return (
-                <div key={id} className="about__partners-card">
-                  <img src={"http://gnss.admin.loc/storage/" + image} alt={title} />
-                  {/* <h6>{title}</h6> */}
-                </div>
-              )
-            })}
+        {partners?.length > 0 ? (
+          <div className="about__partners">
+            <h3>Partners</h3>
+            <div className="about__partners-block">
+              {partners?.map(({ id, title, image }) => {
+                return (
+                  <div key={id} className="about__partners-card">
+                    <img
+                      src={"http://gnss.admin.loc/storage/" + image}
+                      alt={title}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </section>
   );

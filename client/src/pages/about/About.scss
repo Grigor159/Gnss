@@ -6,12 +6,24 @@
     gap: 50px;
     padding: 100px 0;
 
+    @media screen and (max-width: 1280px) {
+      padding: 50px 0;
+    }
+
     h3 {
       text-align: right;
       color: $text;
       font-size: 25px;
       font-weight: 700;
       line-height: 149.523%;
+
+      @media screen and (max-width: 1078px) {
+        text-align: center;
+      }
+
+      @media screen and (max-width: 768px) {
+        font-size: 22px;
+      }
     }
 
     &-context {
@@ -23,6 +35,16 @@
         height: 444px;
         margin-right: 33px;
         border-radius: 12px;
+
+        @media screen and (max-width: 1078px) {
+          // width: 100%;
+          width: 50%;
+          height: 300px;
+        }
+
+        @media screen and (max-width: 768px) {
+          width: 100%;
+        }
 
         img {
           width: 100%;
@@ -42,6 +64,10 @@
         font-weight: 400;
         line-height: 180%;
         text-align: justify;
+
+        @media screen and (max-width: 768px) {
+          font-size: 18px;
+        }
       }
     }
 

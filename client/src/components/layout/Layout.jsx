@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react"
+import React, { Suspense } from "react"
 import { Header } from "../header/Header"
 import { AutoScroll } from "../../helpers/autoScroll"
 import { HelmetAsync } from "../helmetAsync/HelmetAsync"

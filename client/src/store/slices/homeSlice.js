@@ -8,10 +8,13 @@ const initialState = {
   routes: [],
   allCategories: [],
   allSubCategories: [],
-  allChildSubCategories: [], //
+  allChildSubCategories: [],
 
   subCategories: [],
-  childSubcategories: [], //
+  childSubcategories: [],
+
+  burger: "close",
+  openBurger: false,
 
   products: [],
   singleProduct: [],
@@ -154,63 +157,66 @@ const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
-    // set global language
     setLanguage: (state, action) => {
       state.language = action.payload;
     },
-    // set global language value
     setLanguageValue: (state, action) => {
       state.languageValue = action.payload;
     },
-    // clear sub categories
     clearSubCategories: (state, action) => {
       state.subCategories = [];
     },
-    // set bg_image
+    setBurger: (state, action) => {
+      state.burger = action.payload;
+    },
+    setOpenBurger: (state, action) => {
+      state.openBurger = action.payload;
+    },
     setBgImage: (state, action) => {
       state.bgImage = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getHeaderRoutes.fulfilled, (state, action) => {
-      state.routes = action.payload;
-    });
-    builder.addCase(getAllCategories.fulfilled, (state, action) => {
-      state.allCategories = action.payload;
-    });
-    builder.addCase(getAllSubCategories.fulfilled, (state, action) => {
-      state.allSubCategories = action.payload;
-    });
-    builder.addCase(getAllChildSubCategories.fulfilled, (state, action) => {
-      state.allChildSubCategories = action.payload;
-    });
-    builder.addCase(getSubCategories.fulfilled, (state, action) => {
-      state.subCategories = action.payload.data;
-      state.bgImage = action.payload.bg_image; //
-    });
-    builder.addCase(getChildSubCategories.fulfilled, (state, action) => {
-      state.childSubcategories = action.payload.data;
-      state.bgImage = action.payload.bg_image; //
-    });
-    builder.addCase(getAllProducts.fulfilled, (state, action) => {
-      state.products = action.payload;
-    });
-    builder.addCase(getSingleProduct.pending, (state) => {
-      state.singleProduct = [];
-    });
-    builder.addCase(getSingleProduct.fulfilled, (state, action) => {
-      state.singleProduct = action.payload;
-    });
-    builder.addCase(getPartners.fulfilled, (state, action) => {
-      state.partners = action.payload;
-    });
-    builder.addCase(order.fulfilled, (state, action) => {
-      state.orderStatus = action.payload?.status;
-    });
+    builder
+      .addCase(getHeaderRoutes.fulfilled, (state, action) => {
+        state.routes = action.payload;
+      })
+      .addCase(getAllCategories.fulfilled, (state, action) => {
+        state.allCategories = action.payload;
+      })
+      .addCase(getAllSubCategories.fulfilled, (state, action) => {
+        state.allSubCategories = action.payload;
+      })
+      .addCase(getAllChildSubCategories.fulfilled, (state, action) => {
+        state.allChildSubCategories = action.payload;
+      })
+      .addCase(getSubCategories.fulfilled, (state, action) => {
+        state.subCategories = action.payload.data;
+        state.bgImage = action.payload.bg_image; //
+      })
+      .addCase(getChildSubCategories.fulfilled, (state, action) => {
+        state.childSubcategories = action.payload.data;
+        state.bgImage = action.payload.bg_image; //
+      })
+      .addCase(getAllProducts.fulfilled, (state, action) => {
+        state.products = action.payload;
+      })
+      .addCase(getSingleProduct.pending, (state) => {
+        state.singleProduct = [];
+      })
+      .addCase(getSingleProduct.fulfilled, (state, action) => {
+        state.singleProduct = action.payload;
+      })
+      .addCase(getPartners.fulfilled, (state, action) => {
+        state.partners = action.payload;
+      })
+      .addCase(order.fulfilled, (state, action) => {
+        state.orderStatus = action.payload?.status;
+      });
   },
 });
 
-export const { setLanguage, setLanguageValue, clearSubCategories } =
+export const { setLanguage, setLanguageValue, clearSubCategories, setBurger, setOpenBurger, setBgImage } =
   homeSlice.actions;
 
 export default homeSlice.reducer;

@@ -11,10 +11,9 @@ import {
   BiLogoGmail,
 } from "react-icons/bi";
 import { HiPhone } from "react-icons/hi";
-// import { productsMain, productsSub } from "../../view/data";
 import { mainPagesAm, mainPagesEn } from "./data";
-import "./Footer.scss";
 import { capitalizeText, cutText } from "../../helpers/formatters";
+import "./Footer.scss";
 
 export const Footer = () => {
   const { t } = useTranslation()
