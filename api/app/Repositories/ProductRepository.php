@@ -46,10 +46,8 @@ class ProductRepository
 
         $product = Product::create([
             'name' => $data['en_name'],
-            'price' => $data['price'],
             'description' => $data['en_description'],
             'text' => $data['en_text'],
-            'count' => $data['count']
         ]);
 
         ProductTranslations::insert([
@@ -143,10 +141,8 @@ class ProductRepository
 
         $product->update([
             'name' => $data['en_name'],
-            'price' => $data['price'],
             'description' => $data['en_description'],
-            'text' => $data['en_text'],
-            'count' => $data['count']
+            'text' => $data['en_text']
         ]);
 
         ProductTranslations::where('product_id', $product->id)->delete();

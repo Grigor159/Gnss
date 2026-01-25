@@ -200,40 +200,37 @@ class SubcategoryController extends Controller
             ->get();
 
         foreach ($products as $product) {
-            if ($product->count) {
+            $thisProduct['id'] = $product->id;
 
-                $thisProduct['id'] = $product->id;
-
-                if (isset($product->translations)) {
-                    foreach ($product->translations as $tr) {
-                        if ($tr->language == $lang) {
-                            $thisProduct['title'] = ucwords(strtolower($tr->name));
-                        }
+            if (isset($product->translations)) {
+                foreach ($product->translations as $tr) {
+                    if ($tr->language == $lang) {
+                        $thisProduct['title'] = ucwords(strtolower($tr->name));
                     }
                 }
+            }
 
-                foreach ($product->subcategory as $key => $cat) {
-                    if ($cat->id != $id) {
-                        unset($product->subcategory[$key]);
-                    } else {
-                        if (isset($product->subcategory[$key]->translations)) {
-                            foreach ($product->subcategory[$key]->translations as $tr) {
-                                if ($tr->language == $lang) {
-                                    $thisProduct['parent'] = ucwords(strtolower($tr->name));
-                                }
+            foreach ($product->subcategory as $key => $cat) {
+                if ($cat->id != $id) {
+                    unset($product->subcategory[$key]);
+                } else {
+                    if (isset($product->subcategory[$key]->translations)) {
+                        foreach ($product->subcategory[$key]->translations as $tr) {
+                            if ($tr->language == $lang) {
+                                $thisProduct['parent'] = ucwords(strtolower($tr->name));
                             }
                         }
                     }
                 }
-
-                $thisProduct['path'] = '/product/' . $product->id;
-                $thisProduct['images'] = [];
-                foreach ($product->images as $image) {
-                    array_push($thisProduct['images'], $image->filename);
-                }
-
-                array_push($dataProducts, $thisProduct);
             }
+
+            $thisProduct['path'] = '/product/' . $product->id;
+            $thisProduct['images'] = [];
+            foreach ($product->images as $image) {
+                array_push($thisProduct['images'], $image->filename);
+            }
+
+            array_push($dataProducts, $thisProduct);
         }
 
         return response()->json($dataProducts);

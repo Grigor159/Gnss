@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -18,7 +17,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'price', 'description', 'text', 'count'];
+    protected $fillable = ['name', 'description', 'text'];
 
     /**
      * guarded

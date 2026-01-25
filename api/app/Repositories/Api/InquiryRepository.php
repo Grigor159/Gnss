@@ -3,8 +3,11 @@
 namespace App\Repositories\Api;
 
 use App\Models\Inquiry;
+use App\Models\Product;
 use App\Services\ResponseService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class InquiryRepository
 {
@@ -31,12 +34,23 @@ class InquiryRepository
     /**
      * create
      *
-     * @param  mixed $data
-     * @return void
+     * @param mixed $data
+     * @return JsonResponse
+     * @throws Throwable
      */
-    public function create($data)
+    public function create($data): JsonResponse
     {
         DB::beginTransaction();
+
+        $productExists = Product::where('id', $data['id'])->exists();
+
+        if(!$productExists) {
+            DB::rollBack();
+
+            return $this->response->notFound([
+                'message' => 'Product not found'
+            ]);
+        }
 
         try {
             $newInquiry = [
@@ -51,9 +65,11 @@ class InquiryRepository
 
             $inquiry = Inquiry::create($newInquiry);
             DB::commit();
+
             return $this->response->success($inquiry, 'Inquiry Created');
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
+
             return $this->response->badRequest([], $e->getMessage());
         }
     }
@@ -62,7 +78,7 @@ class InquiryRepository
      * reject
      *
      * @param  mixed $id
-     * @return void
+     * @return array
      */
     public function reject($id)
     {
@@ -75,6 +91,7 @@ class InquiryRepository
                 'is_rejected' => 1
             ]);
             DB::commit();
+
             return [
                 'status' => 200,
                 'message' => "Inquiry deleted successfully",
@@ -82,6 +99,7 @@ class InquiryRepository
             ];
         } catch (\Exception $e) {
             DB::rollBack();
+
             return [
                 'status' => 400,
                 'message' => "Something went wrong",

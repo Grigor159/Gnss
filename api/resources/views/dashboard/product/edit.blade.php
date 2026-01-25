@@ -265,39 +265,6 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label for="price">Product price</label>
-                                                        <input
-                                                            type="number"
-                                                            class="form-control"
-                                                            value="{{ old('price') ?? ($product->price ?? '' )}}"
-                                                            placeholder="price"
-                                                            name="price"
-                                                        >
-                                                        @error('price')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="count">Available count</label>
-                                                        <input
-                                                            type="number"
-                                                            class="form-control"
-                                                            value="{{ old('count') ?? ($product->count ?? '' )}}"
-                                                            placeholder="available count"
-                                                            name="count"
-                                                        >
-                                                        @error('count')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
                                                         <label for="images">Links</label>
                                                         @if (count($product['links']))
                                                             @foreach ($product['links'] as $link)

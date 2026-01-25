@@ -43,11 +43,12 @@ class InquiryController extends Controller
     /**
      * index
      *
-     * @return void
+     * @return mixed
      */
     public function index()
     {
         $inquiries = Inquiry::with('product')->orderBy('created_at', 'desc')->paginate('20');
+
         return view('dashboard.inquiries.index', compact('inquiries'));
     }
 

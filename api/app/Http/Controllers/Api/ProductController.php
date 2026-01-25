@@ -12,10 +12,17 @@ class ProductController extends Controller
 
     public function getSingleProduct(int $id,string $lang) : JsonResponse
     {
-
-        $dataProduct = [];
-
         $product = Product::with('translations','images','links','files')->find($id);
+
+        if (!$product) {
+            return response()->json(
+                data:[
+                    'success' => false,
+                    'message' => 'Product not found',
+                ],
+                status: JsonResponse::HTTP_NOT_FOUND
+            );
+        }
 
         $dataProduct = [];
 
@@ -29,7 +36,6 @@ class ProductController extends Controller
             }
         }
 
-        $dataProduct['price'] = $product->price;
         $dataProduct['created_at'] = $product->created_at->format('d-m-Y') ;
         $dataProduct['updated_at'] = $product->updated_at->format('d-m-Y') ;
 
@@ -50,5 +56,4 @@ class ProductController extends Controller
 
         return response()->json($dataProduct);
     }
-
 }

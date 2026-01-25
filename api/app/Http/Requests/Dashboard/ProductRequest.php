@@ -28,8 +28,6 @@ class ProductRequest extends FormRequest
             'am_description' => '',
             'en_text' => '',
             'am_text' => '',
-            'price' => 'integer',
-            'count' => 'integer',
             'images' => '',
             'categories' => '',
             'subcategories' => '',
