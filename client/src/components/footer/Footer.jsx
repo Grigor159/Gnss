@@ -16,11 +16,10 @@ import { capitalizeText, cutText } from "../../helpers/formatters";
 import "./Footer.scss";
 
 export const Footer = () => {
-  const { t } = useTranslation()
-
-  const { allCategories, allSubCategories } = useSelector((state) => state.home);
-
-  const { language } = useSelector((state) => state.home)
+  const { t } = useTranslation();
+  const { allCategories, allSubCategories, language } = useSelector(
+    (state) => state.home,
+  );
 
   return (
     <footer className="footer">
@@ -42,9 +41,6 @@ export const Footer = () => {
               >
                 <BiLogoGmail />
               </a>
-            </div>
-
-            <div className="footer__top-right-social">
               <a
                 href="https://www.facebook.com/leicaarmenia2020/"
                 target="_blank"
@@ -53,27 +49,22 @@ export const Footer = () => {
               >
                 <BiLogoFacebook />
               </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                className="footer__top-right-social-link"
-                rel="noreferrer"
-              >
-                <BiLogoTwitter />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                className="footer__top-right-social-link"
-                rel="noreferrer"
-              >
-                <BiLogoInstagram />
-              </a>
             </div>
           </div>
 
           <div className="footer__top-left">
-            <div className="footer__top-left-card">
+            <a
+              href="tel:+37410584873"
+            >
+              +37410584873
+            </a>
+            <a
+              href="mailto:info@leica.am"
+            >
+              info@leica.am
+            </a>
+
+            {/* <div className="footer__top-left-card">
               <h3>{t("main_pages")}</h3>
               <ul className="footer__top-left-card-list">
                 {language === "am"
@@ -126,7 +117,7 @@ export const Footer = () => {
                   );
                 })}
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -137,7 +128,11 @@ export const Footer = () => {
             <p>ⓒ GNSS {getCurrentYear()} | All Rights Reserved</p>
             <p>
               Website design & development -{" "}
-              <a href="https://gsdev.am" target="_blank" rel="noreferrer">
+              <a
+                href={process.env.REACT_APP_DEV_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
                 GS Development
               </a>
             </p>
