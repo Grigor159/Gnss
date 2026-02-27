@@ -18,14 +18,7 @@ export function capitalizeText(inputText) {
   });
   return capitalizedWords.join(" ");
 }
-// split before "/"
-export function splitBefore(str) {
-  return str.split("/")[0];
-}
-// split after "/"
-export function splitAfter(str) {
-  return str.split("/")[1];
-}
+
 // money formater
 export function moneyFormater(num) {
   let usd = Intl.NumberFormat("en-US");
