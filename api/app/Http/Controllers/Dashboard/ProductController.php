@@ -38,7 +38,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category','subcategory', 'images')
-        ->paginate(30);
+            ->latest()
+            ->paginate(30);
 
         return view("dashboard.product.index", compact('products'));
     }

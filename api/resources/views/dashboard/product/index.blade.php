@@ -40,6 +40,7 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th>Name</th>
+                                    <th>Date</th>
                                     <th style="width: 200px">Action</th>
                                 </tr>
                             </thead>
@@ -48,6 +49,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $product->name }}</td>
+                                        <td>{{ $product->created_at }}</td>
                                         <td>
                                             <span><a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Edit</a></span>
                                             <span>
