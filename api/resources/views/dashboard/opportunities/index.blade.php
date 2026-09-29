@@ -82,18 +82,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($opportunities as $opportunity)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}.</td>
-                                        <td>{{ $opportunity->customer->name }}</td>
-                                        <td>{{ $opportunity->product->name }}</td>
-                                        <td>{{ $opportunity->count }}</td>
-                                        <td>{{ $opportunity->status->name }}</td>
-                                        <td>
-                                            <span><a href="{{ route('opportunities.show', $opportunity->id) }}" class="btn btn-info">View</a></span>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @if (count($opportunities))
+                                    @foreach ($opportunities as $opportunity)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}.</td>
+                                            <td>{{ $opportunity->customer->name }}</td>
+                                            <td>{{ $opportunity->product->name }}</td>
+                                            <td>{{ $opportunity->count }}</td>
+                                            <td>{{ $opportunity->status->name }}</td>
+                                            <td>
+                                                <span><a href="{{ route('opportunities.show', $opportunity->id) }}" class="btn btn-info">View</a></span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
