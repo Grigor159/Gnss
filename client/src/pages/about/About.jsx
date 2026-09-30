@@ -5,6 +5,7 @@ import { getPartners } from "../../store/slices/homeSlice";
 import { Title } from "../../components/animate/Title";
 import { aboutImages } from "./data";
 import { FullScreenSlide } from "../../components/fullScreenSlide/FullScreenSlide";
+import { APP_BASE_URL } from "../../apis/config";
 import "./About.scss";
 
 const About = () => {
@@ -96,7 +97,7 @@ const About = () => {
                 return (
                   <div key={id} className="about__partners-card">
                     <img
-                      src={"http://gnss.admin.loc/storage/" + image}
+                      src={APP_BASE_URL + image}
                       alt={title}
                     />
                   </div>
