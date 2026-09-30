@@ -43,10 +43,12 @@ class PartnerRepository
             'address' => $data['address']
         ]);
 
-        foreach ($data['contactPersons'] as $person) {
-            if ($person['name'] != null) {
-                $person['partner_id'] = $partner->id;
-                PartnerContactPerson::create($person);
+        if (isset($data['contactPersons'])) {
+            foreach ($data['contactPersons'] as $person) {
+                if ($person['name'] != null) {
+                    $person['partner_id'] = $partner->id;
+                    PartnerContactPerson::create($person);
+                }
             }
         }
 
